@@ -1,0 +1,30 @@
+# Copyright 2014, 2015 Peter Dimov
+#
+# Distributed under the Boost Software License, Version 1.0.
+# See accompanying file LICENSE_1_0.txt or copy at
+# http://www.boost.org/LICENSE_1_0.txt
+
+project : default-build release ;
+
+local SOURCES =
+
+  bpm.cpp cmd_headers.cpp cmd_index.cpp cmd_install.cpp
+  cmd_list.cpp cmd_remove.cpp config.cpp dependencies.cpp
+  error.cpp file_reader.cpp fs.cpp http_reader.cpp json.cpp
+  lzma_reader.cpp message.cpp options.cpp package_path.cpp
+  string.cpp tar.cpp tcp_reader.cpp lzma/LzmaDec.c ;
+
+lib ws2_32 ;
+
+exe bpm : ../src/$(SOURCES) :
+
+          <os>NT:<library>ws2_32
+
+          <toolset>msvc:<runtime-link>static
+          <toolset>msvc:<cxxflags>/wd4996 ;
+
+install dist-bin : bpm : <location>../../../dist/bin ;
+explicit dist-bin ;
+
+alias install : dist-bin ;
+explicit install ;
