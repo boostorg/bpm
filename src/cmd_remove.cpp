@@ -255,10 +255,10 @@ void cmd_remove( char const * argv[] )
             {
                 std::string list;
 
-                for( std::set< std::string >::const_iterator i = deps2.begin(); i != deps2.end(); ++i )
+                for( std::set< std::string >::const_iterator j = deps2.begin(); j != deps2.end(); ++j )
                 {
                     list += " ";
-                    list += *i;
+                    list += *j;
                 }
 
                 msg_printf( -2, "package '%s' cannot be removed due to dependents:\n %s", package.c_str(), list.c_str() );
@@ -285,11 +285,11 @@ void cmd_remove( char const * argv[] )
 
             if( s_opt_d )
             {
-                for( std::set< std::string >::const_iterator i = deps2.begin(); i != deps2.end(); ++i )
+                for( std::set< std::string >::const_iterator j = deps2.begin(); j != deps2.end(); ++j )
                 {
-                    if( std::find( packages.begin(), packages.end(), *i ) == packages.end() )
+                    if( std::find( packages.begin(), packages.end(), *j ) == packages.end() )
                     {
-                        packages.push_back( *i );
+                        packages.push_back( *j );
                     }
                 }
             }

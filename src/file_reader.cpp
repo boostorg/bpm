@@ -10,7 +10,7 @@
 #include "error.hpp"
 #include <errno.h>
 
-file_reader::file_reader( std::FILE * f, std::string const & name ): f_( f ), name_( name )
+file_reader::file_reader( std::FILE * f, std::string const & nm ): f_( f ), name_( nm )
 {
 }
 

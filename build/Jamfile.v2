@@ -21,7 +21,12 @@ exe bpm : ../src/$(SOURCES) :
           <os>NT:<library>ws2_32
 
           <toolset>msvc:<runtime-link>static
-          <toolset>msvc:<cxxflags>/wd4996 ;
+
+          <toolset>msvc:<cxxflags>/wd4996 # deprecated
+          <toolset>msvc:<cxxflags>/wd4355 # 'this' in base initializer
+          <toolset>msvc:<cxxflags>/wd4503 # decorated name length exceeded
+
+          <toolset>gcc:<cxxflags>-Wshadow ;
 
 install dist-bin : bpm : <location>../../../dist/bin ;
 explicit dist-bin ;

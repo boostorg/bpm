@@ -9,7 +9,7 @@
 #include "error.hpp"
 #include <cstring>
 
-error::error( std::string const & name, std::string const & reason ): name_( name ), reason_( reason ), what_( "'" + name_ + "': " + reason )
+error::error( std::string const & nm, std::string const & rsn ): name_( nm ), reason_( rsn ), what_( "'" + nm + "': " + rsn )
 {
 }
 

@@ -147,7 +147,7 @@ void tcp_reader::write( void const * p, std::size_t n )
 
     int r = ::send( sk_, static_cast< char const* >( p ), n, 0 );
 
-    if( r < 0 || r < n )
+    if( r < 0 || static_cast< unsigned >( r ) < n )
     {
         throw_socket_error( name(), "TCP send error", WSAGetLastError() );
     }
