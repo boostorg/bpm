@@ -284,7 +284,7 @@ void tar_extract( basic_reader * pr, std::string const & prefix, std::set< std::
                     throw_errno_error( fn, "write error", r2 );
                 }
 
-                if( r != m )
+                if( static_cast< unsigned >( r ) != m )
                 {
                     fs_close( fd );
                     throw_errno_error( fn, "write error", ENOSPC );

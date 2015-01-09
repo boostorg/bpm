@@ -269,7 +269,6 @@ void cmd_install( char const * argv[] )
     }
 
     std::set< std::string > installed;
-    std::set< std::string > need_build;
 
     std::time_t mtime = 0;
 

@@ -128,9 +128,9 @@ static void add_library( std::string const & path, std::map< std::string, librar
             set_field( lib, "key", key );
         }
 
-        std::string name = get_field( lib, "name" );
+        std::string fname = get_field( lib, "name" );
 
-        if( name.empty() )
+        if( fname.empty() )
         {
             msg_printf( -1, "'%s': library '%s' has no name", name.c_str(), key.c_str() );
         }
