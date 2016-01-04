@@ -86,9 +86,33 @@ static void set_field( library & lib, std::string const & name, std::string cons
     lib[ name ].front() = value;
 }
 
+static bool has_meta_file( std::string const & path )
+{
+    return fs_exists( path + "/meta/libraries.json" ) ||
+           fs_exists( path + "/.boost" );
+}
+
+static std::string find_meta_file( std::string const & path )
+{
+    bool meta_libraries = fs_exists(path + "/meta/libraries.json");
+    bool dot_boost = fs_exists(path + "/.boost");
+
+    if( meta_libraries && dot_boost )
+    {
+        msg_printf( -2, "%s contains both a meta/libraries.json file and a .boost file", path.c_str() );
+    }
+
+    if( !meta_libraries && !dot_boost )
+    {
+        msg_printf( -2, "%s contains neither a meta/libraries.json file nor a .boost file", path.c_str() );
+    }
+
+    return path + (dot_boost ? "/.boost" : "/meta/libraries.json");
+}
+
 static void add_library( std::string const & path, std::map< std::string, library > & libraries, std::map< std::string, std::vector< std::string > > & categories )
 {
-    std::string name = path + "/meta/libraries.json";
+    std::string name = find_meta_file( path );
 
     msg_printf( 2, "reading '%s'", name.c_str() );
 
@@ -166,7 +190,7 @@ static void build_library_map( std::string const & path, std::map< std::string, 
 
         std::string p2 = path + "/" + *i;
 
-        if( fs_is_dir( p2 ) && fs_exists( p2 + "/meta/libraries.json" ) )
+        if( fs_is_dir( p2 ) && has_meta_file( p2 ) )
         {
             add_library( p2, libraries, categories );
         }
