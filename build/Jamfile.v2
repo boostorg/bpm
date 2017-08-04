@@ -18,7 +18,7 @@ lib ws2_32 ;
 
 exe bpm : ../src/$(SOURCES) :
 
-          <os>NT:<library>ws2_32
+          <target-os>windows:<library>ws2_32
 
           <toolset>msvc:<runtime-link>static
 
