@@ -29,7 +29,3 @@ exe bpm : ../src/$(SOURCES) :
           <toolset>gcc:<cxxflags>-Wshadow ;
 
 install dist-bin : bpm : <location>../../../dist/bin ;
-explicit dist-bin ;
-
-alias install : dist-bin ;
-explicit install ;
