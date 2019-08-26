@@ -138,6 +138,10 @@ static bool make_relative( std::string const & link, std::string & target )
 
 #if defined( _WIN32 )
 
+#if defined(_WIN32_WINNT)
+#undef _WIN32_WINNT
+#endif
+
 #define _WIN32_WINNT 0x501
 
 #include <algorithm>

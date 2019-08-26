@@ -18,7 +18,7 @@ private:
     basic_reader * pr_;
 
     unsigned char header_[ 13 ];
-    unsigned char state_[ 128 ];
+    unsigned char state_[ 136 ];
 
     static int const N = 4096;
 
