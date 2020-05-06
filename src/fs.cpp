@@ -152,7 +152,11 @@ static bool make_relative( std::string const & link, std::string & target )
 #include <direct.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+#if defined(__CODEGEARC__) && defined(__clang__) // This has been reported to Embarcadero
+#include <utime.h>
+#else
 #include <sys/utime.h>
+#endif
 #include <windows.h>
 
 int fs_creat( std::string const & path, int mode )
@@ -198,6 +202,20 @@ int fs_stat( std::string const & path, int & mode, std::time_t & mtime, std::tim
     return r;
 }
 
+#if defined(__CODEGEARC__) && defined(__clang__) // Reported to Embarcadero
+
+int fs_utime( std::string const & path, std::time_t mtime, std::time_t atime )
+{
+    utimbuf ut;
+
+    ut.actime = atime;
+    ut.modtime = mtime;
+
+    return utime( path.c_str(), &ut );
+}
+
+#else
+
 int fs_utime( std::string const & path, std::time_t mtime, std::time_t atime )
 {
     _utimbuf ut;
@@ -207,6 +225,8 @@ int fs_utime( std::string const & path, std::time_t mtime, std::time_t atime )
 
     return _utime( path.c_str(), &ut );
 }
+
+#endif
 
 int fs_rmdir( std::string const & path )
 {
